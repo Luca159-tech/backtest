@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memory Systems Lab | Contact</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container">
+      <a class="logo" href="index.html">Memory Systems Lab</a>
+      <button class="nav-toggle" type="button">Menu</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Me</a></li>
+        <li class="nav-item">
+          <button type="button" data-dropdown>Projects ▾</button>
+          <div class="dropdown">
+            <a href="projects.html#recall">Project 1: Recall &amp; Memorisation</a>
+            <a href="projects.html#logic">Project 2: Logic Gates &amp; SaaS</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <button type="button" data-dropdown>Account ▾</button>
+          <div class="dropdown">
+            <a href="login.html">Login</a>
+          </div>
+        </li>
+        <li><a href="contact.html">Contact Me</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h2>Contact</h2>
+        <p>For collaboration, discussion, or research enquiries.</p>
+        <div class="form-card">
+          <form>
+            <div>
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Your name" />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" />
+            </div>
+            <div>
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="4" placeholder="Tell me about your idea"></textarea>
+            </div>
+            <button class="primary" type="submit">Send</button>
+          </form>
+          <p class="caption">Email: hello@memorysystems.lab (placeholder)</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">Memory Systems Lab &mdash; open to research collaboration.</div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
