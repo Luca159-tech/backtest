@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memory Systems Lab | Login</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="container">
+      <a class="logo" href="index.html">Memory Systems Lab</a>
+      <button class="nav-toggle" type="button">Menu</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Me</a></li>
+        <li class="nav-item">
+          <button type="button" data-dropdown>Projects ▾</button>
+          <div class="dropdown">
+            <a href="projects.html#recall">Project 1: Recall &amp; Memorisation</a>
+            <a href="projects.html#logic">Project 2: Logic Gates &amp; SaaS</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <button type="button" data-dropdown>Account ▾</button>
+          <div class="dropdown">
+            <a href="login.html">Login</a>
+          </div>
+        </li>
+        <li><a href="contact.html">Contact Me</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h2>Account Login</h2>
+        <p>Authentication systems will be implemented in a future iteration.</p>
+        <div class="form-card">
+          <form>
+            <div>
+              <label for="username">Username</label>
+              <input id="username" name="username" type="text" placeholder="Enter username" />
+            </div>
+            <div>
+              <label for="password">Password</label>
+              <input id="password" name="password" type="password" placeholder="Enter password" />
+            </div>
+            <button class="primary" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">Memory Systems Lab &mdash; secure systems forthcoming.</div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
