@@ -1,17 +1,32 @@
-# Memory Systems Lab
+# Memory Systems Lab — Obsidian Hero Landing Page
 
-## Project Purpose
-Memory Systems Lab is a conceptual site exploring how structured logic, graphs, and system design can improve human recall. It presents the groundwork for building cognitive infrastructure rather than isolated productivity tools.
+A static, single-page website built with HTML and CSS that presents a premium dark hero layout for a memory/recall learning brand.
 
-## Philosophy
-- Memory is a system, not a list.
-- Recall is navigation through a graph of relationships.
-- Logic gates and flow structures can become cognitive routing tools.
+## Features
 
-## Tech Stack
-- HTML5
-- CSS3
-- Vanilla JavaScript
+- Obsidian dark background with subtle vignette + grain texture (CSS only)
+- Centered brand lockup with circular icon mark
+- Large serif-style hero headline and supportive subtitle
+- Two pill-shaped CTA buttons with premium green styling
+- Divider + understated monochrome logo/category row
+- Centered testimonial/quote line
+- Responsive behavior for mobile layouts
+- Accessible focus-visible states and high-contrast color choices
 
-## Status
-This is a foundational prototype intended to evolve into a real product and future SaaS memory platform. The current iteration focuses on clarity, structure, and extensibility, using lightweight visual placeholders instead of bundled binary assets.
+## Run locally
+
+### Python
+
+```bash
+python -m http.server 8000
+```
+
+Then open `http://localhost:8000`.
+
+### Node (optional)
+
+```bash
+npx serve .
+```
+
+Then open the local URL printed in your terminal.

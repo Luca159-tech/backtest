@@ -3,79 +3,52 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Memory Systems Lab | Home</title>
+  <title>Memory Systems Lab</title>
+  <meta
+    name="description"
+    content="Memory Systems Lab helps learners build structured recall through calm, durable study systems."
+  />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <header class="navbar">
-    <div class="container">
-      <a class="logo" href="index.html">Memory Systems Lab</a>
-      <button class="nav-toggle" type="button">Menu</button>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Me</a></li>
-        <li class="nav-item">
-          <button type="button" data-dropdown>Projects ▾</button>
-          <div class="dropdown">
-            <a href="projects.html#recall">Project 1: Recall &amp; Memorisation</a>
-            <a href="projects.html#logic">Project 2: Logic Gates &amp; SaaS</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <button type="button" data-dropdown>Account ▾</button>
-          <div class="dropdown">
-            <a href="login.html">Login</a>
-          </div>
-        </li>
-        <li><a href="contact.html">Contact Me</a></li>
-      </ul>
-    </div>
-  </header>
+  <div class="page-shell">
+    <main class="hero" aria-labelledby="hero-title">
+      <header class="brand-lockup">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" role="img" focusable="false">
+            <circle cx="32" cy="32" r="29"></circle>
+            <path d="M22 40c4-8 8-12 13-19 2-3 8-3 8 2 0 3-1 6-3 9-4 7-7 11-11 15h-7Z"></path>
+          </svg>
+        </span>
+        <p class="brand-name">Memory Systems Lab</p>
+      </header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <h1>Engineering Memory Through Structure, Logic, and Visual Systems</h1>
-          <p>
-            Exploring how humans recall, organise, and extend knowledge using structured logic,
-            graphs, and algorithmic thinking.
-          </p>
-          <p>
-            Memory is treated as a system. Recall becomes navigation. Learning is the act of
-            traversing an evolving graph rather than memorising isolated facts.
-          </p>
-        </div>
-        <div class="hero-visual">
-          <div class="visual-placeholder" role="img" aria-label="Abstract graph grid representing memory networks."></div>
-          <p class="caption">
-            A visual representation of structured knowledge — where memory is treated as a
-            navigable system rather than a list.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="container">
-        <h2>Why Memory Systems?</h2>
-        <p>
-          This project reframes recall as a directional search problem. Concepts become nodes,
-          relationships become edges, and learning becomes the repeated strengthening of the
-          pathways between them.
+      <section class="hero-content">
+        <h1 id="hero-title">Learn faster. Recall longer.</h1>
+        <p class="subtitle">
+          A calm, structured workspace for learners to turn knowledge into a navigable memory map.
         </p>
-        <p>
-          The focus is on building cognitive infrastructure: tools that shape how we encode,
-          traverse, and extend knowledge over time.
-        </p>
-      </div>
-    </section>
-  </main>
 
-  <footer>
-    <div class="container">Memory Systems Lab &mdash; built for structured recall.</div>
-  </footer>
+        <div class="cta-group">
+          <a class="btn btn-primary" href="#projects">Explore Projects</a>
+          <a class="btn btn-secondary" href="#contact">Contact</a>
+        </div>
+      </section>
 
-  <script src="js/main.js"></script>
+      <section class="proof" aria-labelledby="proof-label">
+        <h2 id="proof-label" class="proof-label">Built for learners across:</h2>
+        <ul class="logo-row" aria-label="Learner categories">
+          <li>STUDY</li>
+          <li>SCIENCE</li>
+          <li>MATHS</li>
+          <li>LANGUAGE</li>
+          <li>ENGINEERING</li>
+          <li>EXAMS</li>
+        </ul>
+      </section>
+
+      <p class="quote">“Structure beats cramming — build recall like infrastructure.”</p>
+    </main>
+  </div>
 </body>
 </html>
