@@ -322,11 +322,62 @@ button.primary:hover {
   box-shadow: 0 12px 24px rgba(75, 192, 200, 0.25);
 }
 
-footer {
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.site-footer {
   border-top: 1px solid var(--border);
   padding: 32px 0;
   color: var(--muted);
   font-size: 0.85rem;
+}
+
+.footer-grid {
+  display: grid;
+  gap: 24px;
+}
+
+.footer-column {
+  display: grid;
+  gap: 10px;
+}
+
+.footer-heading {
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.footer-links {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.footer-links a[aria-current="page"],
+.footer-heading a[aria-current="page"] {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (min-width: 700px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 900px) {
