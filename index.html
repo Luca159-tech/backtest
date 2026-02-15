@@ -6,75 +6,35 @@
   <title>Memory Systems Lab | Home</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
-  <header class="navbar">
-    <div class="container">
-      <a class="logo" href="index.html">Memory Systems Lab</a>
-      <button class="nav-toggle" type="button">Menu</button>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Me</a></li>
-        <li class="nav-item">
-          <button type="button" data-dropdown>Projects ▾</button>
-          <div class="dropdown">
-            <a href="projects.html#recall">Project 1: Recall &amp; Memorisation</a>
-            <a href="projects.html#logic">Project 2: Logic Gates &amp; SaaS</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <button type="button" data-dropdown>Account ▾</button>
-          <div class="dropdown">
-            <a href="login.html">Login</a>
-          </div>
-        </li>
-        <li><a href="contact.html">Contact Me</a></li>
-      </ul>
-    </div>
-  </header>
+<body data-page="index.html">
+  <header id="site-header"></header>
 
   <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <h1>Engineering Memory Through Structure, Logic, and Visual Systems</h1>
-          <p>
-            Exploring how humans recall, organise, and extend knowledge using structured logic,
-            graphs, and algorithmic thinking.
-          </p>
-          <p>
-            Memory is treated as a system. Recall becomes navigation. Learning is the act of
-            traversing an evolving graph rather than memorising isolated facts.
-          </p>
+    <div class="container page-panel">
+      <section class="hero-copy">
+        <h1>Learn faster. Recall longer.</h1>
+        <p>A calm, structured workspace for learners to turn knowledge into a navigable memory map.</p>
+        <div class="cta-group">
+          <a class="btn btn-primary" href="projects.html">Explore Projects</a>
+          <a class="btn btn-secondary" href="contact.html">Contact</a>
         </div>
-        <div class="hero-visual">
-          <div class="visual-placeholder" role="img" aria-label="Abstract graph grid representing memory networks."></div>
-          <p class="caption">
-            A visual representation of structured knowledge — where memory is treated as a
-            navigable system rather than a list.
-          </p>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section">
-      <div class="container">
-        <h2>Why Memory Systems?</h2>
+      <figure class="brain-image">
+        <img src="assets/images/brain-reference.svg" alt="Brain-focused memory systems visual" />
+      </figure>
+
+      <section class="section">
+        <h2>Built for learners across study, science, maths, language and exams</h2>
         <p>
-          This project reframes recall as a directional search problem. Concepts become nodes,
-          relationships become edges, and learning becomes the repeated strengthening of the
-          pathways between them.
+          Structure beats cramming. This site focuses on reusable systems for encoding, recalling,
+          and connecting ideas through visual and logical pathways.
         </p>
-        <p>
-          The focus is on building cognitive infrastructure: tools that shape how we encode,
-          traverse, and extend knowledge over time.
-        </p>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
 
-  <footer>
-    <div class="container">Memory Systems Lab &mdash; built for structured recall.</div>
-  </footer>
+  <footer id="site-footer"></footer>
 
   <script src="js/main.js"></script>
 </body>

@@ -6,92 +6,36 @@
   <title>Memory Systems Lab | Projects</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
-  <header class="navbar">
-    <div class="container">
-      <a class="logo" href="index.html">Memory Systems Lab</a>
-      <button class="nav-toggle" type="button">Menu</button>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Me</a></li>
-        <li class="nav-item">
-          <button type="button" data-dropdown>Projects ▾</button>
-          <div class="dropdown">
-            <a href="#recall">Project 1: Recall &amp; Memorisation</a>
-            <a href="#logic">Project 2: Logic Gates &amp; SaaS</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <button type="button" data-dropdown>Account ▾</button>
-          <div class="dropdown">
-            <a href="login.html">Login</a>
-          </div>
-        </li>
-        <li><a href="contact.html">Contact Me</a></li>
-      </ul>
-    </div>
-  </header>
+<body data-page="projects.html">
+  <header id="site-header"></header>
 
   <main>
-    <section class="section" id="recall">
-      <div class="container">
-        <h2>Project 1 &mdash; Recall &amp; Memorisation</h2>
+    <div class="container page-panel">
+      <section id="recall">
+        <h2>Project 1 — Recall &amp; Memorisation</h2>
         <div class="card-grid">
           <article class="project-card">
-            <div class="visual-placeholder" role="img" aria-label="Graph-like visual suggesting recall pathways."></div>
             <h3>Memorisation as Path-Finding</h3>
-            <p>
-              Recall is modelled as graph traversal. Nodes represent concepts. Edges are the
-              relationships that allow a retrieval path to form. Dense interconnection improves
-              retrieval speed and resilience.
-            </p>
-            <p>
-              Visual and logical encoding outperforms rote repetition. The system encourages
-              repeated activation of neighbouring nodes to strengthen memory pathways while
-              highlighting weak or unused connections that decay.
-            </p>
-            <div class="project-tags">
-              <span>Nodes = concepts</span>
-              <span>Edges = relationships</span>
-              <span>Recall = activating neighbours</span>
-              <span>Forgetting = weakened connections</span>
-            </div>
+            <p>Recall is modelled as graph traversal. Concepts become nodes, relationships become edges.</p>
           </article>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="section" id="logic">
-      <div class="container">
-        <h2>Project 2 &mdash; Logic Gates &amp; SaaS Memory Systems</h2>
+      <section class="section" id="logic">
+        <h2>Project 2 — Logic Gates &amp; SaaS Memory Systems</h2>
         <div class="card-grid">
           <article class="project-card">
-            <div class="visual-placeholder warm" role="img" aria-label="Logic flow diagram for memory routing."></div>
             <h3>Logic as Cognitive Routing</h3>
             <p>
-              Inspired by flowcharts and decision trees, this project treats logic gates (AND, OR,
-              NOT) as cognitive filters. They route memory pathways, determine retrieval rules, and
-              enable programmable recall.
+              Decision filters (AND, OR, NOT) can route memory pathways and support programmable learning systems.
             </p>
-            <p>
-              The long-term vision is a SaaS platform where users build memory systems using logic
-              primitives. Learning becomes programmable. This site lays the conceptual groundwork
-              for that future direction.
-            </p>
-            <div class="project-tags">
-              <span>Logic gates as filters</span>
-              <span>Decision-tree inspired</span>
-              <span>Future SaaS platform</span>
-            </div>
           </article>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
 
-  <footer>
-    <div class="container">Memory Systems Lab &mdash; prototypes for programmable learning.</div>
-  </footer>
+  <footer id="site-footer"></footer>
 
   <script src="js/main.js"></script>
 </body>
