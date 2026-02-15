@@ -292,3 +292,210 @@ a:focus-visible {
     gap: 0.55rem;
   }
 }
+
+/* Multi-page layout restoration with current Obsidian palette */
+body {
+  display: block;
+  place-items: initial;
+  padding: 0;
+  line-height: 1.6;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  padding-top: 6.5rem;
+}
+
+.container {
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+  z-index: 10;
+  background: rgba(11, 15, 12, 0.92);
+  border-bottom: 1px solid var(--divider);
+  backdrop-filter: blur(8px);
+}
+
+.navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.logo {
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a,
+.nav-links button {
+  color: var(--text-primary);
+  background: none;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  min-width: 230px;
+  border-radius: 0.75rem;
+  border: 1px solid var(--divider);
+  background: var(--panel);
+  box-shadow: var(--shadow-deep);
+  padding: 0.5rem 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.dropdown a {
+  display: block;
+  padding: 0.45rem 0.9rem;
+}
+
+.nav-item.open .dropdown,
+.nav-item:hover .dropdown,
+.nav-item:focus-within .dropdown {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.nav-toggle {
+  display: none;
+  border: 1px solid var(--divider);
+  color: var(--text-primary);
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.7rem;
+}
+
+.section {
+  padding: 3.5rem 0;
+}
+
+.section h2 {
+  margin-bottom: 1rem;
+}
+
+.card-grid {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.project-card,
+.form-card,
+.hero-visual {
+  background: linear-gradient(180deg, rgba(17, 24, 20, 0.92), rgba(11, 15, 12, 0.95));
+  border: 1px solid var(--divider);
+  border-radius: 1rem;
+  box-shadow: var(--shadow-deep);
+}
+
+.project-card,
+.form-card {
+  padding: 1.5rem;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+form {
+  display: grid;
+  gap: 1rem;
+}
+
+input,
+textarea {
+  width: 100%;
+  border-radius: 0.6rem;
+  border: 1px solid var(--divider);
+  background: var(--obsidian-bg);
+  color: var(--text-primary);
+  padding: 0.65rem 0.8rem;
+  font: inherit;
+}
+
+button.primary {
+  background: linear-gradient(180deg, var(--green-hover), var(--green-accent));
+  border: 1px solid var(--divider);
+  color: #04110f;
+  border-radius: 999px;
+  padding: 0.65rem 1.1rem;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  body {
+    padding: 0;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 4vw;
+    width: min(280px, 90vw);
+    border: 1px solid var(--divider);
+    border-radius: 0.75rem;
+    background: rgba(11, 15, 12, 0.98);
+    padding: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+
+  .nav-links.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .nav-item .dropdown,
+  .nav-item.open .dropdown {
+    position: static;
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    box-shadow: none;
+    margin-top: 0.5rem;
+  }
+}

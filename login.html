@@ -6,8 +6,31 @@
   <title>Memory Systems Lab | Login</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body data-page="login.html">
-  <header id="site-header"></header>
+<body>
+  <header class="navbar">
+    <div class="container">
+      <a class="logo" href="index.html">Memory Systems Lab</a>
+      <button class="nav-toggle" type="button">Menu</button>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Me</a></li>
+        <li class="nav-item">
+          <button type="button" data-dropdown>Projects ▾</button>
+          <div class="dropdown">
+            <a href="projects.html#recall">Project 1: Recall &amp; Memorisation</a>
+            <a href="projects.html#logic">Project 2: Logic Gates &amp; SaaS</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <button type="button" data-dropdown>Account ▾</button>
+          <div class="dropdown">
+            <a href="login.html">Login</a>
+          </div>
+        </li>
+        <li><a href="contact.html">Contact Me</a></li>
+      </ul>
+    </div>
+  </header>
 
   <main>
     <section class="section">
@@ -31,7 +54,9 @@
     </section>
   </main>
 
-  <footer id="site-footer"></footer>
+  <footer>
+    <div class="container">Memory Systems Lab &mdash; secure systems forthcoming.</div>
+  </footer>
 
   <script src="js/main.js"></script>
 </body>
