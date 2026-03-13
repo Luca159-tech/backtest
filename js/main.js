@@ -41,6 +41,32 @@ function setActiveLink() {
   });
 }
 
+function initLoginGateway() {
+  const loginForm = document.querySelector('#login-form');
+  const continueLink = document.querySelector('#continue-link');
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const email = document.querySelector('#login-email')?.value.trim();
+      const password = document.querySelector('#login-password')?.value.trim();
+
+      if (!email || !password) {
+        return;
+      }
+
+      localStorage.setItem('loggedIn', 'true');
+      window.location.href = 'index.html';
+    });
+  }
+
+  if (continueLink) {
+    continueLink.addEventListener('click', () => {
+      localStorage.setItem('loggedIn', 'true');
+    });
+  }
+}
+
 async function loadLayout() {
   const headerTarget = document.querySelector('#site-header');
   const footerTarget = document.querySelector('#site-footer');
@@ -70,4 +96,5 @@ async function loadLayout() {
   }
 }
 
+initLoginGateway();
 loadLayout();

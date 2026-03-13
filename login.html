@@ -3,35 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Memory Systems Lab | Login</title>
+  <title>Memory Systems Lab | Login Gateway</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body data-page="login.html">
-  <header id="site-header"></header>
-
+<body class="login-page" data-page="login.html">
   <main>
-    <div class="container page-panel">
-      <section>
-        <h2>Account Login</h2>
-        <p>Authentication systems will be implemented in a future iteration.</p>
-        <div class="form-card">
-          <form>
-            <div>
-              <label for="username">Username</label>
-              <input id="username" name="username" type="text" placeholder="Enter username" />
-            </div>
-            <div>
-              <label for="password">Password</label>
-              <input id="password" name="password" type="password" placeholder="Enter password" />
-            </div>
-            <button class="primary" type="submit">Submit</button>
-          </form>
-        </div>
-      </section>
-    </div>
-  </main>
+    <section class="login-card" aria-labelledby="login-title">
+      <h1 id="login-title">Memory Systems Lab</h1>
+      <p>Log in to continue into your structured memory workspace.</p>
 
-  <footer id="site-footer"></footer>
+      <form class="login-form" id="login-form" novalidate>
+        <div>
+          <label for="login-email">Email</label>
+          <input id="login-email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div>
+          <label for="login-password">Password</label>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" required />
+        </div>
+        <button class="login-button" type="submit">Log In</button>
+      </form>
+
+      <a class="continue-link" id="continue-link" href="index.html">Continue without account</a>
+    </section>
+  </main>
 
   <script src="js/main.js"></script>
 </body>
