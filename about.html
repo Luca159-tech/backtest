@@ -6,62 +6,31 @@
   <title>Memory Systems Lab | About</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
-  <header class="navbar">
-    <div class="container">
-      <a class="logo" href="index.html">Memory Systems Lab</a>
-      <button class="nav-toggle" type="button">Menu</button>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Me</a></li>
-        <li class="nav-item">
-          <button type="button" data-dropdown>Projects ▾</button>
-          <div class="dropdown">
-            <a href="projects.html#recall">Project 1: Recall &amp; Memorisation</a>
-            <a href="projects.html#logic">Project 2: Logic Gates &amp; SaaS</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <button type="button" data-dropdown>Account ▾</button>
-          <div class="dropdown">
-            <a href="login.html">Login</a>
-          </div>
-        </li>
-        <li><a href="contact.html">Contact Me</a></li>
-      </ul>
-    </div>
-  </header>
+<body data-page="about.html">
+  <header id="site-header"></header>
 
   <main>
-    <section class="section">
-      <div class="container">
+    <div class="container page-panel">
+      <section>
         <h2>Systems Thinking for Human Recall</h2>
         <p>
           I am focused on systems thinking, logic, and the mechanics of human recall. The aim is
-          not to build isolated apps, but to engineer cognitive infrastructure &mdash; frameworks
-          that shape how knowledge is encoded, routed, and retrieved.
+          to engineer cognitive infrastructure that shapes how knowledge is encoded, routed, and retrieved.
         </p>
         <p>
-          Memorisation fails when structure is missing. Without an explicit map of relationships,
-          recall becomes a fragile lookup table. By contrast, a graph-based model exposes the
-          pathways between ideas and makes retrieval resilient.
+          Memorisation fails when structure is missing. A graph-based model exposes pathways
+          between ideas and makes retrieval resilient over time.
         </p>
+        <h3>Why this matters</h3>
         <p>
-          Logic gates are not only electronic primitives. They are cognitive filters that govern
-          how information flows. When combined with graph structures, they become an intentional
-          architecture for thinking.
+          Logic gates can act as cognitive filters. Combined with graph structures, they support
+          intentional architectures for long-term learning.
         </p>
-        <p>
-          This work stays grounded: precise terminology, observable effects, and a clear focus on
-          the tools that can strengthen real-world learning.
-        </p>
-      </div>
-    </section>
+      </section>
+    </div>
   </main>
 
-  <footer>
-    <div class="container">Memory Systems Lab &mdash; exploring structured cognition.</div>
-  </footer>
+  <footer id="site-footer"></footer>
 
   <script src="js/main.js"></script>
 </body>

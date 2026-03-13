@@ -3,60 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Memory Systems Lab | Login</title>
+  <title>Memory Systems Lab | Login Gateway</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body>
-  <header class="navbar">
-    <div class="container">
-      <a class="logo" href="index.html">Memory Systems Lab</a>
-      <button class="nav-toggle" type="button">Menu</button>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Me</a></li>
-        <li class="nav-item">
-          <button type="button" data-dropdown>Projects ▾</button>
-          <div class="dropdown">
-            <a href="projects.html#recall">Project 1: Recall &amp; Memorisation</a>
-            <a href="projects.html#logic">Project 2: Logic Gates &amp; SaaS</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <button type="button" data-dropdown>Account ▾</button>
-          <div class="dropdown">
-            <a href="login.html">Login</a>
-          </div>
-        </li>
-        <li><a href="contact.html">Contact Me</a></li>
-      </ul>
-    </div>
-  </header>
-
+<body class="login-page" data-page="login.html">
   <main>
-    <section class="section">
-      <div class="container">
-        <h2>Account Login</h2>
-        <p>Authentication systems will be implemented in a future iteration.</p>
-        <div class="form-card">
-          <form>
-            <div>
-              <label for="username">Username</label>
-              <input id="username" name="username" type="text" placeholder="Enter username" />
-            </div>
-            <div>
-              <label for="password">Password</label>
-              <input id="password" name="password" type="password" placeholder="Enter password" />
-            </div>
-            <button class="primary" type="submit">Submit</button>
-          </form>
+    <section class="login-card" aria-labelledby="login-title">
+      <h1 id="login-title">Memory Systems Lab</h1>
+      <p>Log in to continue into your structured memory workspace.</p>
+
+      <form class="login-form" id="login-form" novalidate>
+        <div>
+          <label for="login-email">Email</label>
+          <input id="login-email" name="email" type="email" autocomplete="email" required />
         </div>
-      </div>
+        <div>
+          <label for="login-password">Password</label>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" required />
+        </div>
+        <button class="login-button" type="submit">Log In</button>
+      </form>
+
+      <a class="continue-link" id="continue-link" href="index.html">Continue without account</a>
     </section>
   </main>
-
-  <footer>
-    <div class="container">Memory Systems Lab &mdash; secure systems forthcoming.</div>
-  </footer>
 
   <script src="js/main.js"></script>
 </body>
