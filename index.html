@@ -3,222 +3,101 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="A prerequisite-aware mastery map for STEM students." />
-  <title>Recall Lab — Mastery Map</title>
+  <meta name="description" content="Recall Lab turns STEM course material into an adaptive mastery map." />
+  <title>Recall Lab — STEM Mastery Map</title>
   <link rel="stylesheet" href="css/styles.css" />
 </head>
-<body class="app-page" data-page="mastery-map">
-  <a class="skip-link" href="#main-content">Skip to mastery map</a>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
 
   <header class="app-header">
     <a class="brand" href="index.html" aria-label="Recall Lab home">
       <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
       <span>Recall<span>Lab</span></span>
     </a>
-    <div class="course-switcher">
-      <span class="course-dot"></span>
-      <span>Year 1 Mechatronics</span>
-      <kbd>⌘ K</kbd>
-    </div>
-    <div class="header-actions">
-      <button class="icon-button" type="button" aria-label="Search">⌕</button>
-      <button class="avatar" type="button" aria-label="Open profile">LM</button>
-    </div>
+    <button class="course-switcher" id="course-switcher" type="button" aria-haspopup="listbox">
+      <span class="course-dot"></span><span id="active-course-title">Year 1 Mechatronics</span><span aria-hidden="true">⌄</span>
+    </button>
+    <div class="header-actions"><button class="icon-button" id="quick-add" type="button" aria-label="Add a concept">＋</button><button class="avatar" type="button" aria-label="Prototype profile">LM</button></div>
   </header>
+
+  <div class="course-menu" id="course-menu" role="listbox" aria-label="Choose course" hidden></div>
 
   <div class="app-shell">
     <aside class="sidebar" aria-label="Primary navigation">
       <nav>
-        <p class="nav-label">Workspace</p>
-        <button class="nav-link active" data-view="mastery"><span>◉</span>Mastery map</button>
-        <button class="nav-link" data-view="knowledge"><span>◇</span>Knowledge graph</button>
-        <button class="nav-link" data-view="path"><span>↗</span>Learning path</button>
-        <button class="nav-link" data-view="sources"><span>▤</span>Sources</button>
-
         <p class="nav-label">Learn</p>
-        <button class="nav-link" id="sidebar-study"><span>▶</span>Study session</button>
-        <button class="nav-link"><span>✓</span>Diagnostics</button>
+        <button class="nav-link active" data-view="map" type="button"><span>◉</span>Mastery map</button>
+        <button class="nav-link" data-view="courses" type="button"><span>▦</span>Courses</button>
+        <button class="nav-link" data-view="diagnostic" type="button"><span>✓</span>Diagnostic</button>
+        <button class="nav-link" data-view="sessions" type="button"><span>▶</span>Study sessions</button>
+        <p class="nav-label">Workspace</p>
+        <button class="nav-link" data-view="activity" type="button"><span>◷</span>Activity</button>
+        <button class="nav-link" data-view="data" type="button"><span>⇅</span>Data &amp; backup</button>
       </nav>
-
-      <div class="weekly-card">
-        <div class="weekly-ring"><strong>64%</strong></div>
-        <div>
-          <span>Weekly target</span>
-          <strong>2h 34m / 4h</strong>
-        </div>
-      </div>
-
-      <button class="collapse-button" id="collapse-sidebar" type="button">‹ <span>Collapse sidebar</span></button>
+      <div class="weekly-card"><div class="weekly-ring" id="weekly-ring"><strong id="weekly-percent">0%</strong></div><div><span>Weekly target</span><strong id="weekly-progress">0m / 4h</strong></div></div>
+      <p class="prototype-note">Local-first MVP<br><span>Saved in this browser</span></p>
     </aside>
 
-    <main id="main-content">
-      <section class="dashboard-head">
-        <div>
-          <span class="eyebrow">Monday, 21 September</span>
-          <h1>Your mastery map</h1>
-          <p id="view-description">See what you understand, uncover prerequisite gaps, and choose the highest-impact next step.</p>
-        </div>
-        <div class="head-actions">
-          <button class="secondary-button" id="diagnostic-button" type="button">Run diagnostic</button>
-          <button class="primary-button" id="start-study" type="button"><span>▶</span> Start 20-min session</button>
-        </div>
+    <main id="main-content" tabindex="-1">
+      <section class="app-view active" data-panel="map">
+        <header class="page-head">
+          <div><span class="eyebrow">Adaptive STEM learning</span><h1>Your mastery map</h1><p>See what you understand, repair prerequisite gaps, and choose the highest-impact next step.</p></div>
+          <div class="head-actions"><button class="secondary-button" id="add-relationship" type="button">Connect concepts</button><button class="primary-button" id="start-diagnostic" type="button">Run diagnostic</button></div>
+        </header>
+        <section class="metric-grid" id="metric-grid" aria-label="Course summary"></section>
+        <section class="workspace-grid">
+          <article class="graph-panel">
+            <header class="panel-head"><div><span class="eyebrow">Editable knowledge graph</span><h2 id="graph-title">Course pathway</h2></div><div class="graph-tools"><span class="edit-hint">Select a node to inspect it</span><button class="icon-button" id="add-concept" type="button" aria-label="Add concept">＋</button></div></header>
+            <div class="graph-stage" id="graph-stage" tabindex="0" aria-label="Interactive course mastery graph"></div>
+          </article>
+          <aside class="inspector-panel" id="inspector" aria-live="polite"></aside>
+        </section>
+        <section class="recommendation" id="recommendation"></section>
       </section>
 
-      <section class="metric-grid" aria-label="Course summary">
-        <article class="metric-card">
-          <span class="metric-icon green">↗</span>
-          <div><small>Overall mastery</small><strong>68%</strong><span class="trend">+6% this week</span></div>
-        </article>
-        <article class="metric-card">
-          <span class="metric-icon amber">!</span>
-          <div><small>Needs attention</small><strong>4 concepts</strong><span>2 prerequisite gaps</span></div>
-        </article>
-        <article class="metric-card">
-          <span class="metric-icon blue">◷</span>
-          <div><small>Next review</small><strong>Today</strong><span>7 concepts due</span></div>
-        </article>
-        <article class="metric-card">
-          <span class="metric-icon violet">◆</span>
-          <div><small>Course readiness</small><strong>61%</strong><span>Exam in 42 days</span></div>
-        </article>
+      <section class="app-view" data-panel="courses">
+        <header class="page-head"><div><span class="eyebrow">Your learning spaces</span><h1>Courses</h1><p>Create a focused mastery map for each module or qualification.</p></div><button class="primary-button" id="create-course" type="button">＋ New course</button></header>
+        <div class="course-grid" id="course-grid"></div>
       </section>
 
-      <section class="workspace-grid">
-        <article class="graph-panel">
-          <header class="panel-head">
-            <div>
-              <span class="eyebrow" id="graph-eyebrow">Interactive mastery map</span>
-              <h2 id="graph-title">Control systems pathway</h2>
-            </div>
-            <div class="graph-tools">
-              <div class="segmented" aria-label="Graph display mode">
-                <button class="active" type="button" data-mode="mastery">Mastery</button>
-                <button type="button" data-mode="links">Links</button>
-              </div>
-              <button class="icon-button" id="reset-graph" type="button" aria-label="Reset graph">⌖</button>
-            </div>
-          </header>
-
-          <div class="graph-stage" id="graph-stage" tabindex="0" aria-label="Interactive concept graph. Select a concept for details.">
-            <svg class="connections" viewBox="0 0 900 520" preserveAspectRatio="none" aria-hidden="true">
-              <defs>
-                <linearGradient id="line-ok" x1="0" x2="1"><stop stop-color="#22c997"/><stop offset="1" stop-color="#42a5ff"/></linearGradient>
-              </defs>
-              <path class="edge mastered" d="M145 270 C230 250 260 165 350 148"/>
-              <path class="edge learning" d="M145 270 C245 300 265 360 360 365"/>
-              <path class="edge learning" d="M350 148 C455 145 475 230 560 246"/>
-              <path class="edge weak" d="M360 365 C470 370 475 275 560 246"/>
-              <path class="edge locked" d="M560 246 C665 245 675 170 760 160"/>
-              <path class="edge locked" d="M560 246 C660 265 675 350 760 365"/>
-            </svg>
-
-            <button class="concept-node mastered" style="--x:13%;--y:52%" data-concept="algebra" type="button">
-              <span class="node-orbit"></span><small>Foundation</small><strong>Algebra</strong><em>91%</em>
-            </button>
-            <button class="concept-node strong" style="--x:38%;--y:25%" data-concept="calculus" type="button">
-              <span class="node-orbit"></span><small>Foundation</small><strong>Calculus</strong><em>82%</em>
-            </button>
-            <button class="concept-node learning" style="--x:39%;--y:70%" data-concept="differential" type="button">
-              <span class="node-orbit"></span><small>Core concept</small><strong>Differential equations</strong><em>58%</em>
-            </button>
-            <button class="concept-node weak selected" style="--x:62%;--y:47%" data-concept="transfer" type="button">
-              <span class="node-orbit"></span><small>Weak area</small><strong>Transfer functions</strong><em>42%</em>
-            </button>
-            <button class="concept-node locked" style="--x:84%;--y:27%" data-concept="feedback" type="button">
-              <span class="node-orbit"></span><small>Not ready</small><strong>Feedback systems</strong><em>—</em>
-            </button>
-            <button class="concept-node locked" style="--x:84%;--y:70%" data-concept="pid" type="button">
-              <span class="node-orbit"></span><small>Target</small><strong>PID control</strong><em>—</em>
-            </button>
-
-            <div class="graph-legend">
-              <span><i class="legend-dot mastered"></i>Mastered</span>
-              <span><i class="legend-dot learning"></i>Learning</span>
-              <span><i class="legend-dot weak"></i>Weak</span>
-              <span><i class="legend-dot locked"></i>Locked</span>
-            </div>
-          </div>
-        </article>
-
-        <aside class="inspector-panel" aria-live="polite">
-          <div class="inspector-top">
-            <span class="status-pill" id="concept-status">Needs attention</span>
-            <button class="icon-button" type="button" aria-label="More options">•••</button>
-          </div>
-          <h2 id="concept-name">Transfer functions</h2>
-          <p id="concept-description">Represent a system’s output-to-input relationship in the Laplace domain.</p>
-
-          <div class="mastery-score">
-            <div class="score-ring" id="score-ring" style="--score:42"><span id="concept-score">42%</span></div>
-            <div><small>Current mastery</small><strong id="score-label">Developing</strong><span id="review-date">Reviewed 3 days ago</span></div>
-          </div>
-
-          <div class="insight-card">
-            <span class="spark">✦</span>
-            <div><strong>Why this is weak</strong><p id="concept-insight">You understand the definition, but made two mistakes rearranging differential equations.</p></div>
-          </div>
-
-          <section class="detail-section">
-            <div class="section-title"><h3>Prerequisites</h3><span id="prereq-count">2 of 3 strong</span></div>
-            <div class="prereq-list" id="prereq-list">
-              <button data-concept="algebra"><span class="mini-dot mastered"></span>Algebra <b>91%</b></button>
-              <button data-concept="calculus"><span class="mini-dot strong"></span>Calculus <b>82%</b></button>
-              <button data-concept="differential"><span class="mini-dot learning"></span>Differential equations <b>58%</b></button>
-            </div>
-          </section>
-
-          <section class="detail-section">
-            <div class="section-title"><h3>Evidence</h3><span>3 sources</span></div>
-            <a class="source-row" href="#" onclick="return false"><span>PDF</span><div><strong>Control Systems · Lecture 4</strong><small>Pages 12–19</small></div><b>↗</b></a>
-            <a class="source-row" href="#" onclick="return false"><span>NOTE</span><div><strong>Laplace transform examples</strong><small>Edited yesterday</small></div><b>↗</b></a>
-          </section>
-
-          <button class="primary-button full-width" id="review-concept" type="button">Review this concept <span>→</span></button>
-        </aside>
+      <section class="app-view" data-panel="diagnostic">
+        <header class="page-head"><div><span class="eyebrow">Evidence, not confidence</span><h1>Diagnostic centre</h1><p>Short retrieval checks update mastery using demonstrated performance.</p></div><button class="primary-button" id="diagnostic-page-start" type="button">Start recommended diagnostic</button></header>
+        <div class="two-column"><article class="content-card"><h2>Concept coverage</h2><div id="diagnostic-coverage"></div></article><article class="content-card"><h2>How scores work</h2><ol class="explain-list"><li>Recent answers receive slightly more weight.</li><li>Repeated practice increases confidence in the score.</li><li>Mastery gradually decays when a concept is not retrieved.</li><li>Prerequisite scores affect downstream readiness.</li></ol></article></div>
       </section>
 
-      <section class="recommendation">
-        <div class="recommendation-icon">✦</div>
-        <div>
-          <span class="eyebrow">Recommended next</span>
-          <h2>Strengthen differential equations first</h2>
-          <p>It is the limiting prerequisite for transfer functions. A focused review should unlock faster progress across three downstream concepts.</p>
+      <section class="app-view" data-panel="sessions">
+        <header class="page-head"><div><span class="eyebrow">Focused practice</span><h1>Study sessions</h1><p>Use your weakest high-impact concepts to build a focused 20-minute plan.</p></div><button class="primary-button" id="generate-session" type="button">Generate session</button></header>
+        <div id="session-list" class="session-list"></div>
+      </section>
+
+      <section class="app-view" data-panel="activity">
+        <header class="page-head"><div><span class="eyebrow">Proof of progress</span><h1>Activity</h1><p>Your diagnostics, sessions and graph changes appear here.</p></div></header>
+        <article class="content-card"><div class="timeline" id="activity-list"></div></article>
+      </section>
+
+      <section class="app-view" data-panel="data">
+        <header class="page-head"><div><span class="eyebrow">Portable by design</span><h1>Data &amp; backup</h1><p>Your MVP data stays in this browser unless you export it.</p></div></header>
+        <div class="data-grid">
+          <article class="content-card action-card"><span class="action-icon">↓</span><h2>Export backup</h2><p>Download every course, concept, relationship, attempt and session as JSON.</p><button class="primary-button" id="export-data" type="button">Export JSON</button></article>
+          <article class="content-card action-card"><span class="action-icon">↑</span><h2>Import backup</h2><p>Restore a Recall Lab JSON backup. The file is validated before replacing local data.</p><label class="secondary-button file-button">Choose JSON<input id="import-data" type="file" accept="application/json,.json" /></label></article>
+          <article class="content-card action-card danger-card"><span class="action-icon">↺</span><h2>Reset sample</h2><p>Erase local changes and return to the demonstration Mechatronics course.</p><button class="danger-button" id="reset-data" type="button">Reset local data</button></article>
         </div>
-        <div class="impact">
-          <span>Expected impact</span>
-          <strong>+12%</strong>
-          <small>course readiness</small>
-        </div>
-        <button class="secondary-button" id="build-session" type="button">Build session →</button>
       </section>
     </main>
   </div>
 
-  <dialog class="study-dialog" id="study-dialog">
-    <form method="dialog">
-      <button class="dialog-close" value="close" aria-label="Close">×</button>
-      <span class="eyebrow">Personalised study session</span>
-      <h2>20 minutes to unlock transfer functions</h2>
-      <div class="session-step"><span>01 · 5 min</span><div><strong>Repair the prerequisite</strong><p>Rearranging first-order differential equations</p></div></div>
-      <div class="session-step"><span>02 · 10 min</span><div><strong>Apply the concept</strong><p>Convert two system equations into transfer functions</p></div></div>
-      <div class="session-step"><span>03 · 5 min</span><div><strong>Prove recall</strong><p>Complete a no-notes diagnostic question</p></div></div>
-      <button class="primary-button full-width" value="close">Begin session</button>
-    </form>
-  </dialog>
+  <dialog class="modal" id="course-dialog"><form method="dialog" id="course-form"><button class="dialog-close" value="cancel" formnovalidate aria-label="Close">×</button><span class="eyebrow">New learning space</span><h2>Create a course</h2><label>Course title<input name="title" required maxlength="80" placeholder="e.g. Engineering Mathematics" /></label><div class="form-row"><label>Course code<input name="code" maxlength="20" placeholder="MEC102" /></label><label>Exam date<input name="examDate" type="date" /></label></div><label>Weekly study target (minutes)<input name="weeklyTargetMinutes" type="number" min="20" max="2000" value="240" required /></label><button class="primary-button full-width" type="submit">Create course</button></form></dialog>
 
-  <dialog class="study-dialog diagnostic-dialog" id="diagnostic-dialog">
-    <form method="dialog" id="diagnostic-form">
-      <button class="dialog-close" value="close" aria-label="Close">×</button>
-      <span class="eyebrow">Quick diagnostic · 1 of 3</span>
-      <h2>Which operation converts a differential equation into an algebraic equation in the s-domain?</h2>
-      <label class="answer-option"><input type="radio" name="answer" value="fourier"> Fourier transform</label>
-      <label class="answer-option"><input type="radio" name="answer" value="laplace"> Laplace transform</label>
-      <label class="answer-option"><input type="radio" name="answer" value="gradient"> Gradient descent</label>
-      <p class="answer-feedback" id="answer-feedback"></p>
-      <button class="primary-button full-width" type="submit">Check answer</button>
-    </form>
-  </dialog>
+  <dialog class="modal" id="concept-dialog"><form method="dialog" id="concept-form"><button class="dialog-close" value="cancel" formnovalidate aria-label="Close">×</button><span class="eyebrow" id="concept-form-eyebrow">Knowledge node</span><h2 id="concept-form-title">Add concept</h2><input name="id" type="hidden" /><label>Concept name<input name="name" required maxlength="80" /></label><label>Description<textarea name="description" rows="3" required maxlength="400"></textarea></label><div class="form-row"><label>Importance<select name="importance"><option value="5">Critical</option><option value="4">High</option><option value="3">Normal</option><option value="2">Supporting</option><option value="1">Optional</option></select></label><label>Starting mastery<input name="initialMastery" type="number" min="0" max="100" value="0" /></label></div><label>Source or evidence<input name="source" maxlength="160" placeholder="Lecture, textbook chapter or URL" /></label><label>Personal notes<textarea name="notes" rows="3" maxlength="500"></textarea></label><div class="dialog-actions"><button class="danger-button" id="delete-concept" type="button" hidden>Delete</button><button class="primary-button" type="submit">Save concept</button></div></form></dialog>
 
-  <script src="js/main.js"></script>
+  <dialog class="modal" id="relationship-dialog"><form method="dialog" id="relationship-form"><button class="dialog-close" value="cancel" formnovalidate aria-label="Close">×</button><span class="eyebrow">Typed connection</span><h2>Connect concepts</h2><label>From<select name="from" required></select></label><label>Relationship<select name="type"><option value="prerequisite">is a prerequisite for</option><option value="supports">supports</option><option value="example">is an example of</option><option value="contradicts">contradicts</option></select></label><label>To<select name="to" required></select></label><button class="primary-button full-width" type="submit">Add connection</button></form></dialog>
+
+  <dialog class="modal diagnostic-modal" id="diagnostic-dialog"><form method="dialog" id="diagnostic-form"><button class="dialog-close" value="cancel" formnovalidate aria-label="Close diagnostic">×</button><span class="eyebrow" id="diagnostic-progress">Quick diagnostic</span><h2 id="diagnostic-question"></h2><fieldset id="diagnostic-options"><legend class="sr-only">Choose one answer</legend></fieldset><p class="answer-feedback" id="answer-feedback" aria-live="polite"></p><button class="primary-button full-width" id="check-answer" type="submit">Check answer</button></form></dialog>
+
+  <dialog class="modal" id="session-dialog"><form method="dialog" id="session-form"><button class="dialog-close" value="cancel" formnovalidate aria-label="Close">×</button><span class="eyebrow">Adaptive session</span><h2>20 minutes, highest impact</h2><div id="session-preview"></div><button class="primary-button full-width" id="save-session" type="submit">Add to study sessions</button></form></dialog>
+
+  <script src="js/mastery-engine.js"></script><script src="js/sample-data.js"></script><script src="js/main.js"></script>
 </body>
 </html>

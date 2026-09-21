@@ -1,38 +1,58 @@
-# Recall Lab — STEM Mastery Map Prototype
+# Recall Lab — STEM Mastery MVP
 
-An interactive front-end prototype for a prerequisite-aware learning product aimed at university STEM students.
+Recall Lab is a browser-based, prerequisite-aware study tool for technical students. It turns a course into an editable concept graph, records demonstrated performance, and recommends the next highest-impact topic to study.
 
-## Product thesis
+This MVP is deliberately local-first: all course and learning data stays in the browser's `localStorage` until the user exports a JSON backup. There is no account, server database, analytics service, or credential collection in this version.
 
-Traditional knowledge graphs show what information is connected. Recall Lab adds a personal mastery layer so learners can see:
+## What works
 
-- what they understand;
-- which prerequisites are blocking progress;
-- why a concept is weak;
-- what evidence supports each concept; and
-- the highest-impact topic to study next.
-
-## Prototype features
-
-- Interactive engineering concept graph
-- Mastery, learning, weak and locked states
-- Concept inspector with prerequisite navigation
-- Evidence/source cards
-- Prerequisite-aware study recommendation
-- 20-minute personalised study-session modal
-- Interactive diagnostic question with feedback
-- Knowledge, mastery, path and source view modes
-- Responsive desktop, tablet and mobile layouts
-- Keyboard and reduced-motion accessibility considerations
-
-## Important scope
-
-This branch is a product prototype. Scores and course data are illustrative and stored in the front-end. Authentication, document processing, AI generation, persistence and billing will require a backend in a later phase.
+- Create and switch between courses.
+- Add, edit and delete concepts.
+- Connect concepts with `prerequisite`, `supports`, `example`, or `contradicts` relationships.
+- Prevent circular prerequisite chains.
+- Complete short multiple-choice diagnostics.
+- Calculate mastery from initial knowledge, weighted attempts, confidence and time-based decay.
+- Show prerequisite readiness, locked topics, review status and ranked study recommendations.
+- Generate focused 20-minute study sessions and mark them complete.
+- Track diagnostic and session activity.
+- Export and import a validated JSON backup.
+- Reset to realistic Year 1 Mechatronics sample content.
+- Use responsive layouts, keyboard controls, visible focus states and reduced-motion preferences.
 
 ## Run locally
+
+No build step or dependency install is required.
 
 ```bash
 python -m http.server 8000
 ```
 
-Then open `http://localhost:8000`.
+Open `http://localhost:8000`.
+
+## Run tests
+
+```bash
+node tests/mastery.test.js
+node tests/ui.test.js
+```
+
+The calculation suite covers mastery, prerequisite readiness, recommendations, session allocation and backup validation. The UI suite checks required screens, controls, accessible labels, unique element IDs and script wiring.
+
+## How mastery works
+
+Each concept has a starting score and a history of scored attempts. Newer attempts receive more weight. Repeated evidence raises confidence, while an overdue concept receives gradual decay. Prerequisite averages determine whether a downstream concept is ready or locked. Recommendations prioritize the combination of knowledge gap, course importance, downstream influence and review urgency.
+
+The model is intentionally understandable rather than opaque. It is a useful MVP heuristic, not a validated assessment of a learner's ability.
+
+## Data and privacy
+
+- Browser storage key: `recall-lab-mvp-v1`
+- Export format: versioned JSON containing courses, concepts, relationships, attempts, sessions and activity
+- Import behavior: validates the backup shape before replacing local data
+- Credentials/tokens: none are requested or stored
+
+Clearing browser storage deletes unexported progress. Export a backup before clearing site data or changing browser/device.
+
+## Deployment safety
+
+Development is isolated on the `codex/functional-mastery-mvp` branch. The live site remains unchanged until the branch is reviewed and merged by Luca.
