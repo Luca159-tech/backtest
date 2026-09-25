@@ -7,6 +7,8 @@ This MVP is deliberately local-first: all course and learning data stays in the 
 ## What works
 
 - Create and switch between courses.
+- Edit course titles, codes, exam dates and weekly study targets.
+- Delete courses with confirmation while always retaining at least one course.
 - Add, edit and delete concepts.
 - Connect concepts with `prerequisite`, `supports`, `example`, or `contradicts` relationships.
 - Prevent circular prerequisite chains.
@@ -33,6 +35,7 @@ Open `http://localhost:8000`.
 
 ```bash
 node tests/mastery.test.js
+node tests/course-manager.test.js
 node tests/ui.test.js
 ```
 

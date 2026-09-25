@@ -3,6 +3,7 @@
 
   const STORAGE_KEY = 'recall-lab-mvp-v1';
   const engine = window.MasteryEngine;
+  const courseManager = window.CourseManager;
   const sample = window.RecallSampleData;
   const $ = (selector, scope = document) => scope.querySelector(selector);
   const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
@@ -88,7 +89,7 @@
       menu.hidden = true;
       renderAll();
     }));
-    $('[data-create-course]', menu)?.addEventListener('click', () => { menu.hidden = true; openDialog('#course-dialog'); });
+    $('[data-create-course]', menu)?.addEventListener('click', () => { menu.hidden = true; showCourseForm(); });
   }
 
   function renderWeeklyProgress() {
@@ -203,9 +204,10 @@
     const target = $('#course-grid');
     target.innerHTML = state.courses.map((course) => {
       const summary = engine.courseSummary(course);
-      return `<article class="course-card ${course.id === state.activeCourseId ? 'active' : ''}"><span class="course-code">${escapeHtml(course.code || 'COURSE')}</span><h2>${escapeHtml(course.title)}</h2><p>${course.concepts.length} concepts · ${course.relationships.length} connections</p><div class="course-progress"><span style="width:${summary.mastery}%"></span></div><div class="course-card-foot"><strong>${summary.mastery}% mastery</strong><span>Exam: ${formatDate(course.examDate)}</span></div><button type="button" data-open-course="${escapeHtml(course.id)}">${course.id === state.activeCourseId ? 'Open course' : 'Switch to course'}</button></article>`;
+      return `<article class="course-card ${course.id === state.activeCourseId ? 'active' : ''}"><span class="course-code">${escapeHtml(course.code || 'COURSE')}</span><h2>${escapeHtml(course.title)}</h2><p>${course.concepts.length} concepts · ${course.relationships.length} connections</p><div class="course-progress"><span style="width:${summary.mastery}%"></span></div><div class="course-card-foot"><strong>${summary.mastery}% mastery</strong><span>Exam: ${formatDate(course.examDate)}</span></div><div class="course-card-actions"><button type="button" data-edit-course="${escapeHtml(course.id)}">Settings</button><button type="button" data-open-course="${escapeHtml(course.id)}">${course.id === state.activeCourseId ? 'Open course' : 'Switch to course'}</button></div></article>`;
     }).join('');
     $$('[data-open-course]', target).forEach((button) => button.addEventListener('click', () => { state.activeCourseId = button.dataset.openCourse; state.selectedConceptId = activeCourse().concepts[0]?.id || null; persist(); switchView('map'); }));
+    $$('[data-edit-course]', target).forEach((button) => button.addEventListener('click', () => showCourseForm(state.courses.find((course) => course.id === button.dataset.editCourse))));
   }
 
   function renderDiagnosticCoverage() {
@@ -257,6 +259,25 @@
     setTimeout(() => form.elements.name.focus(), 50);
   }
 
+  function showCourseForm(course = null) {
+    const form = $('#course-form');
+    form.reset();
+    form.elements.id.value = course?.id || '';
+    form.elements.title.value = course?.title || '';
+    form.elements.code.value = course?.code || '';
+    form.elements.examDate.value = course?.examDate || '';
+    form.elements.weeklyTargetMinutes.value = course?.weeklyTargetMinutes || 240;
+    $('#course-form-eyebrow').textContent = course ? 'Course settings' : 'New learning space';
+    $('#course-form-title').textContent = course ? `Edit ${course.title}` : 'Create a course';
+    $('#save-course').textContent = course ? 'Save changes' : 'Create course';
+    const deleteButton = $('#delete-course');
+    deleteButton.hidden = !course;
+    deleteButton.disabled = Boolean(course && state.courses.length === 1);
+    $('#course-delete-hint').hidden = !course || state.courses.length > 1;
+    openDialog('#course-dialog');
+    setTimeout(() => form.elements.title.focus(), 50);
+  }
+
   function nextPosition(count) {
     const columns = [15, 35, 55, 75, 85];
     const rows = [20, 48, 76];
@@ -300,15 +321,38 @@
     persist(); $('#concept-dialog').close(); renderAll(); toast('Concept deleted.', 'warning');
   }
 
-  function createCourse(event) {
+  function saveCourse(event) {
     event.preventDefault();
     const form = event.currentTarget;
     if (!form.reportValidity()) return;
     const data = new FormData(form);
-    const course = { id: uid('course'), title: data.get('title').trim(), code: data.get('code').trim(), examDate: data.get('examDate'), weeklyTargetMinutes: Number(data.get('weeklyTargetMinutes')), concepts: [], relationships: [], attempts: [], sessions: [], activity: [] };
+    const existingId = data.get('id');
+    const values = { title: data.get('title'), code: data.get('code'), examDate: data.get('examDate'), weeklyTargetMinutes: data.get('weeklyTargetMinutes') };
+    if (existingId) {
+      const course = courseManager.updateCourse(state, existingId, values);
+      if (!course) { toast('That course could not be found.', 'error'); return; }
+      state.activeCourseId = course.id;
+      state.selectedConceptId = course.concepts[0]?.id || null;
+      addActivity(`Updated course settings for ${course.title}`, 'course-updated');
+      persist(); $('#course-dialog').close(); renderAll(); toast('Course settings saved.');
+      return;
+    }
+    const course = { id: uid('course'), ...courseManager.normaliseValues(values), concepts: [], relationships: [], attempts: [], sessions: [], activity: [] };
     state.courses.push(course); state.activeCourseId = course.id; state.selectedConceptId = null;
     addActivity(`Created ${course.title}`, 'course-created');
     persist(); form.reset(); $('#course-dialog').close(); switchView('map'); toast('Course created. Add its first concept.');
+  }
+
+  function deleteCourse() {
+    const courseId = $('#course-form').elements.id.value;
+    const course = state.courses.find((item) => item.id === courseId);
+    if (!course) return;
+    if (state.courses.length === 1) { toast('Keep at least one course in Recall Lab.', 'warning'); return; }
+    const detail = `${course.concepts.length} concept${course.concepts.length === 1 ? '' : 's'}, ${course.relationships.length} connection${course.relationships.length === 1 ? '' : 's'} and its activity`;
+    if (!confirm(`Delete ${course.title}? This permanently removes ${detail} from this browser.`)) return;
+    const result = courseManager.removeCourse(state, courseId);
+    if (!result.removed) { toast('That course could not be deleted.', 'error'); return; }
+    persist(); $('#course-dialog').close(); renderAll(); toast(`${course.title} deleted.`, 'warning');
   }
 
   function wouldCreateCycle(course, from, to) {
@@ -454,8 +498,8 @@
     $('#quick-add').addEventListener('click', () => showConceptForm()); $('#add-concept').addEventListener('click', () => showConceptForm());
     $('#add-relationship').addEventListener('click', showRelationshipForm);
     $('#start-diagnostic').addEventListener('click', () => startDiagnostic()); $('#diagnostic-page-start').addEventListener('click', () => startDiagnostic());
-    $('#generate-session').addEventListener('click', showSessionPreview); $('#create-course').addEventListener('click', () => openDialog('#course-dialog'));
-    $('#course-form').addEventListener('submit', createCourse); $('#concept-form').addEventListener('submit', saveConcept); $('#delete-concept').addEventListener('click', deleteSelectedConcept);
+    $('#generate-session').addEventListener('click', showSessionPreview); $('#create-course').addEventListener('click', () => showCourseForm());
+    $('#course-form').addEventListener('submit', saveCourse); $('#delete-course').addEventListener('click', deleteCourse); $('#concept-form').addEventListener('submit', saveConcept); $('#delete-concept').addEventListener('click', deleteSelectedConcept);
     $('#relationship-form').addEventListener('submit', saveRelationship); $('#diagnostic-form').addEventListener('submit', handleDiagnostic); $('#session-form').addEventListener('submit', saveSession);
     $('#export-data').addEventListener('click', exportData); $('#import-data').addEventListener('change', importData);
     $('#reset-data').addEventListener('click', () => { if (!confirm('Erase local changes and restore the sample course?')) return; state = sample.createSampleState(); persist(); switchView('map'); toast('Sample data restored.'); });
