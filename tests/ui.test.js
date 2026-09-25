@@ -13,6 +13,8 @@ requiredViews.forEach((view) => {
 
 const requiredControls = [
   'create-course',
+  'delete-course',
+  'save-course',
   'add-concept',
   'add-relationship',
   'start-diagnostic',
@@ -33,7 +35,7 @@ referencedIds.forEach((id) => {
   assert(ids.includes(id), `main.js references missing #${id}`);
 });
 
-['js/mastery-engine.js', 'js/sample-data.js', 'js/main.js'].forEach((script) => {
+['js/mastery-engine.js', 'js/course-manager.js', 'js/sample-data.js', 'js/main.js'].forEach((script) => {
   assert.match(html, new RegExp(`<script src="${script.replace('.', '\\.')}"`));
   assert(fs.existsSync(path.join(root, script)), `Missing ${script}`);
 });
